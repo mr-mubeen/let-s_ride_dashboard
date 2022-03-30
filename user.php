@@ -242,7 +242,7 @@ if(isset($_POST['sbt'])){
      $des = "images/".$filename;
      move_uploaded_file($filetmp , $des); 
 
-    $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
+      $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
       $sql = "INSERT INTO users(customer_name ,customer_image, customer_address , card_username, card_number, CVV, pincode, zipcode ) VALUES ('{$user}', '{$filename}', '{$user_address}' , '{$card_username}' , '{$card_number}' , '{$CVV}' , '{$pincode}' , '{$zipcode}' )";
       $result = mysqli_query($conn , $sql) or die ("Regsiter _______________________ Failed");
       echo "<script>alert('{$result}')</script>";
