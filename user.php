@@ -107,7 +107,7 @@ include 'F:\xampp\htdocs\lets_ride\connect.php';
                             <br>
                            
 
-                            <form action="#" method="post">
+                            <form action="#" method="post" enctype="multipart/form-data">
 
                             <div class="profile flex-row align-items-end justify-content-start">
                                 <div class="profile-img position-relative">
@@ -120,7 +120,7 @@ include 'F:\xampp\htdocs\lets_ride\connect.php';
                                 <a onclick="$('#uploaduser').trigger('click');" href="#" class="pt-2 ms-2">Upload
                                     Profile Logo</a>
                             </div>
-                            <input type="file" id="uploaduser" name="user_image" class="d-none">
+                            <input type="file" id="uploaduser" name="image" class="d-none">
 
 
                                 <div class="d-flex justify-content-between flex-wrap">
@@ -227,7 +227,6 @@ include 'F:\xampp\htdocs\lets_ride\connect.php';
 <?php
     
 if(isset($_POST['sbt'])){
-    $user_image = $_POST['user_image'];
       $user = $_POST['user'];
       $user_address = $_POST['user_address'];
       $card_username = $_POST['card_username'];
@@ -239,12 +238,12 @@ if(isset($_POST['sbt'])){
  
      $filename = $_FILES['image']['name'];
      $filesize = $_FILES['image']['size'];
-      $filetmp = $_FILES['image']['tmp_name'];
-      $des = "images/".$filename;
-      move_uploaded_file($filetmp , $des); 
+     $filetmp = $_FILES['image']['tmp_name'];
+     $des = "images/".$filename;
+     move_uploaded_file($filetmp , $des); 
 
     $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
-      $sql = "INSERT INTO users(customer_name ,customer_image, customer_address , card_username, card_number, CVV, pincode, zipcode ) VALUES ('{$user}', '{$user_address}' , '{$card_username}' , '{$card_number}' , '{$CVV}' , '{$pincode}' , '{$zipcode}' , '{$filename}')";
+      $sql = "INSERT INTO users(customer_name ,customer_image, customer_address , card_username, card_number, CVV, pincode, zipcode ) VALUES ('{$user}', '{$filename}', '{$user_address}' , '{$card_username}' , '{$card_number}' , '{$CVV}' , '{$pincode}' , '{$zipcode}' )";
       $result = mysqli_query($conn , $sql) or die ("Regsiter _______________________ Failed");
       echo "<script>alert('{$result}')</script>";
 
