@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+
+$email = $_SESSION["email"];
+$r_id = $_SESSION["r_id"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,10 +66,32 @@ session_start();
                     <h2 class="mb-0 h2-cs">Vendor Registration Form</h2>
                     <p class="mb-0 p-cs">Submit the form below to become a vendor on Let’s Ride</p>
                 </div>
-                <div class="rgt d-flex align-items-center wrap-sm">
-                    <div class="me-4">
-                        <h6 class="mb-0 fw-bold">Shah Rukh Khan</h6>
-                        <small>10 Paya Lebar Rd, #B1-14 PLQ Mall, Singapore 409057</small>
+
+                                
+<?php
+
+$conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
+$sql1 = "SELECT * from restaurant where restaurant_id = '{$r_id}'";
+$result1 = mysqli_query($conn , $sql1) or die ("Regsiter  Failed");
+$a = mysqli_num_rows($result1);
+
+if($a > 0)
+{
+   while($row = mysqli_fetch_assoc($result1))
+    {
+        $business_name = $row['business_name'];
+        $office_address = $row['office_address'];  
+    }
+}
+
+?>
+
+            <div class="rgt d-flex align-items-center wrap-sm">
+                <div class="me-4">
+                    <h6 class="mb-0 fw-bold"><?php echo $business_name?></h6>
+                    <small><?php echo $office_address?></small>
+
+               
                     </div>
                     <div class="profile-top-icon">
                         <img src="../assets/img/profile.png" alt="profile">
@@ -111,11 +138,11 @@ session_start();
             <br>
             <div class="main-cs d-flex wrap-sm flex-column overflow-hidden">
                 <div class="head-sec d-flex wrap-sm bg-black">
-                    <a class="tab-link" href="profile.html">Profile</a>
-                    <a class="tab-link active" href="category.html">Category</a>
-                    <a class="tab-link" href="documents.html">Documents</a>
-                    <a class="tab-link" href="service.html">Service</a>
-                    <a class="tab-link" href="settings.html">Settings</a>
+                    <a class="tab-link" href="profile.php">Profile</a>
+                    <a class="tab-link active" href="category.php">Category</a>
+                    <a class="tab-link" href="documents.php">Documents</a>
+                    <a class="tab-link" href="service.php">Service</a>
+                    <a class="tab-link" href="settings.php">Settings</a>
                 </div>
                 <div class="body-sec d-flex wrap-sm p-4">
                     <div class="lft p-2 pe-5">
@@ -166,6 +193,8 @@ session_start();
                                     </div>
                                 </div>
 
+                                <br><br>
+
                                 <div class="d-flex justify-content-end">
                                 <button href="#" name = "sbt" class="btn btn-red btn-md-cs me-2">Save</button>
                                 <a href="documents.php" class="btn btn-default btn-md-cs">Next</a>
@@ -183,8 +212,6 @@ session_start();
                         <?php
 
 
-$email = $_SESSION["email"];
-$r_id = $_SESSION["r_id"];
                             $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
 
                             $sql1 = "SELECT *  from restaurant where restaurant_id = '{$r_id}'";

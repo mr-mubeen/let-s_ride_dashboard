@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+
+
+$email = $_SESSION["email"];
+$r_id = $_SESSION["r_id"];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,10 +69,29 @@
                         <h2 class="mb-0 h2-cs">Vendor Registration Form</h2>
                         <p class="mb-0 p-cs">Submit the form below to become a vendor on Let’s Ride</p>
                     </div>
-                    <div class="rgt d-flex align-items-center wrap-sm">
-                        <div class="me-4">
-                            <h6 class="mb-0 fw-bold">Shah Rukh Khan</h6>
-                            <small>10 Paya Lebar Rd, #B1-14 PLQ Mall, Singapore 409057</small>
+                                   
+<?php
+
+$conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
+$sql1 = "SELECT * from restaurant where restaurant_id = '{$r_id}'";
+$result1 = mysqli_query($conn , $sql1) or die ("Regsiter  Failed");
+$a = mysqli_num_rows($result1);
+
+if($a > 0)
+{
+   while($row = mysqli_fetch_assoc($result1))
+    {
+        $business_name = $row['business_name'];
+        $office_address = $row['office_address'];  
+    }
+}
+
+?>
+
+            <div class="rgt d-flex align-items-center wrap-sm">
+                <div class="me-4">
+                    <h6 class="mb-0 fw-bold"><?php echo $business_name?></h6>
+                    <small><?php echo $office_address?></small>
                         </div>
                         <div class="profile-top-icon">
                             <img src="../assets/img/profile.png" alt="profile">
@@ -107,16 +137,16 @@
                 <br>
                 <br>
                 <div class="main-cs d-flex wrap-sm flex-column overflow-hidden">
-                    <div class="head-sec d-flex wrap-sm bg-black">
-                        <a class="tab-link" href="profile.html">Profile</a>
-                        <a class="tab-link" href="category.html">Category</a>
-                        <a class="tab-link active" href="documents.html">Documents</a>
-                        <a class="tab-link" href="service.html">Service</a>
-                        <a class="tab-link" href="settings.html">Settings</a>
-                    </div>
+                <div class="head-sec d-flex wrap-sm bg-black">
+                    <a class="tab-link" href="profile.php">Profile</a>
+                    <a class="tab-link " href="category.php">Category</a>
+                    <a class="tab-link active" href="documents.php">Documents</a>
+                    <a class="tab-link" href="service.php">Service</a>
+                    <a class="tab-link" href="settings.php">Settings</a>
+                </div>
                     <div class="body-sec d-flex wrap-sm p-4">
                         <div class="lft p-2 pe-5">
-                            <form action="#">
+                            <form action="#" method = "POST"  enctype="multipart/form-data">
 
                                 <div class="title-line d-flex">
                                     <span class="pe-2">Documents* (If Any)</span>
@@ -144,7 +174,7 @@
                                                         aria-valuemax="100"></div>
                                                 </div> -->
 
-                                                <input type="file" name = "acra" required>
+                                                <input type="file" name = "acra_cert" required>
                                             </div>
                                             <div class="w-20 d-flex justify-content-center">
                                                 <div class="card-icon card-icon-sm crd-icon-2">
@@ -307,7 +337,7 @@
                                                         aria-valuemax="100"></div>
                                                 </div> -->
 
-                                                <input type="file" name = "lfs_cert" required>
+                                                <input type="file" name = "lfa_cert" required>
 
                                             </div>
                                             <div class="w-20 d-flex justify-content-center">
@@ -321,7 +351,7 @@
                                         <div class="form-cs form-control position-relative w-100 mt-4">
                                             <label class="position-absolute start-0 text-light-cs">Expiry*</label>
                                             <input onfocus="(this.type='date')" value="2022-03-27"
-                                                class="border-0 w-100 h-100" name = "lfs_exp" type="date">
+                                                class="border-0 w-100 h-100" name = "lfa_exp" type="date">
                                         </div>
                                     </div>
                                 </div>
@@ -363,28 +393,31 @@
                                     </div>
                                 </div>
 
-                            </form>
-                        </div>
-                        <div class="rgt p-4 position-relative">
-                            <div class="title-line d-flex">
-                                <span>Other Certificates (If Any)</span>
-                            </div>
-                            <hr>
-                            <br>
-                            <div class="d-flex w-100 justify-content-center flex-column align-items-center">
-                                <div onclick="$('#cert').trigger('click');" class="card-icon crd-icon-5 mb-2">
-                                    <i class="fa-solid fa-plus"></i>
+                           
                                 </div>
-                                <a href="#" onclick="$('#cert').trigger('click');" class="text-light-cs">Upload If
-                                    any...</a>
-                            </div>
-                            <input type="file" name = "others" id="cert" class="d-none">
-                            <br>
-                            <div class="d-flex justify-content-end position-absolute bottom-0">
-                                <a href="#" class="btn btn-red btn-md-cs me-2" name = "sbt" >Save</a>
-                                <a href="service.php" class="btn btn-default btn-md-cs">Next</a>
-                            </div>
-                        </div>
+                                <div class="rgt p-4 position-relative">
+                                    <div class="title-line d-flex">
+                                        <span>Other Certificates (If Any)</span>
+                                    </div>
+                                    <hr>
+                                    <br>
+                                    <div class="d-flex w-100 justify-content-center flex-column align-items-center">
+                                        <div onclick="$('#cert').trigger('click');" class="card-icon crd-icon-5 mb-2">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </div>
+                                        <a href="#" onclick="$('#cert').trigger('click');" class="text-light-cs">Upload If
+                                            any...</a>
+                                    </div>
+                                    <input type="file" name = "others" id="cert" class="d-none">
+                                   
+                                    <div class="d-flex justify-content-end position-absolute bottom-0">
+                                    <br><br>
+                                        <button class="btn btn-red btn-md-cs me-2" name = "sbt" >Save</button>
+                                        <a href="service.php" class="btn btn-default btn-md-cs">Next</a>
+                                    </div>
+                                </div>
+
+                        </form>
                     </div>
                 </div>
                 <br><br>
@@ -417,6 +450,51 @@
     $sfa_cert = $_POST['sfa_cert'];
     $sfa_exp = $_POST['sfa_exp'];
     $others = $_POST['others'];
+
+
+    
+   $acra_cert = $_FILES['acra_cert']['name'];
+   $acra_cert_tmp = $_FILES['acra_cert']['tmp_name'];
+   $des = "images/".$acra_cert;
+   move_uploaded_file($acra_cert_tmp , $des); 
+
+
+   
+   $agreement_cert = $_FILES['agreement_cert']['name'];
+   $agreement_cert_tmp = $_FILES['agreement_cert']['tmp_name'];
+   $des = "images/".$agreement_cert;
+   move_uploaded_file($agreement_cert_tmp , $des); 
+
+
+   
+   $halal_cert = $_FILES['halal_cert']['name'];
+   $halal_cert_tmp = $_FILES['halal_cert']['tmp_name'];
+   $des = "images/".$halal_cert;
+   move_uploaded_file($halal_cert_tmp , $des); 
+
+   
+   $food_cert = $_FILES['food_cert']['name'];
+   $food_cert_tmp = $_FILES['food_cert']['tmp_name'];
+   $des = "images/".$food_cert;
+   move_uploaded_file($food_cert_tmp , $des); 
+
+   
+   $lfa_cert = $_FILES['lfa_cert']['name'];
+   $lfa_cert_tmp = $_FILES['lfa_cert']['tmp_name'];
+   $des = "images/".$lfa_cert;
+   move_uploaded_file($lfa_cert_tmp , $des); 
+
+   $sfa_cert = $_FILES['sfa_cert']['name'];
+   $sfa_cert_tmp = $_FILES['sfa_cert']['tmp_name'];
+   $des = "images/".$sfa_cert;
+   move_uploaded_file($sfa_cert_tmp , $des); 
+
+
+   
+   $others = $_FILES['others']['name'];
+   $others_temp = $_FILES['others']['tmp_name'];
+   $des = "images/".$others;
+   move_uploaded_file($others_temp , $des); 
 
     $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
     $sql = "UPDATE restaurant SET acra_cert = '{$acra_cert}' , uen = '{$UEN}' , acra_exp = '{$acra_exp}' , agreement_cert = '{$agreement_cert}' , agreement_exp = '{$agreement_exp}' ,  halal_cert = '{$halal_cert}' ,  halal_exp = '{$halal_exp}' , food_cert = '{$food_cert}' ,  food_exp = '{$food_exp}' , lfa_cert = '{$lfa_cert}' ,  lfa_exp = '{$lfa_exp}' ,  sfa_cert = '{$sfa_cert}' ,  sfa_exp = '{$sfa_exp}' , others = '{$others}' where restaurant_id = '{$r_id}'";

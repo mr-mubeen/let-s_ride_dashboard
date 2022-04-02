@@ -6,11 +6,6 @@ $r_id = $_SESSION["r_id"];
 
 ?>
 
-
-
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,32 +69,27 @@ session_start();
 
                 
 <?php
-         
 
     $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
-    echo $sql = "SELECT * from restaurant where restaurant_id = '{$r_id}'";
-
-    $result = mysqli_query($conn , $sql) or die ("Regsiter _______________________ Failed");
-
-    if($result)
+    $sql1 = "SELECT * from restaurant where restaurant_id = '{$r_id}'";
+    $result1 = mysqli_query($conn , $sql1) or die ("Regsiter  Failed");
+    $a = mysqli_num_rows($result1);
+    
+    if($a > 0)
     {
-        echo "<script>alert('Saved')</script>";
-       
-
+       while($row = mysqli_fetch_assoc($result1))
+        {
+            $business_name = $row['business_name'];
+            $office_address = $row['office_address'];  
+        }
     }
-    else 
-    { 
-        echo "<script>alert('Failed')</script>";
-    }
-
-}
 
 ?>
 
                 <div class="rgt d-flex align-items-center wrap-sm">
                     <div class="me-4">
-                        <h6 class="mb-0 fw-bold">Shah Rukh Khan</h6>
-                        <small>10 Paya Lebar Rd, #B1-14 PLQ Mall, Singapore 409057</small>
+                        <h6 class="mb-0 fw-bold"><?php echo $business_name?></h6>
+                        <small><?php echo $office_address?></small>
                     </div>
                     <div class="profile-top-icon">
                         <img src="../assets/img/profile.png" alt="profile">
@@ -145,9 +135,9 @@ session_start();
             <br>
             <br>
             <div class="main-cs d-flex wrap-sm flex-column overflow-hidden">
-                <div class="head-sec d-flex wrap-sm bg-black">
+            <div class="head-sec d-flex wrap-sm bg-black">
                     <a class="tab-link" href="profile.php">Profile</a>
-                    <a class="tab-link" href="category.php">Category</a>
+                    <a class="tab-link " href="category.php">Category</a>
                     <a class="tab-link" href="documents.php">Documents</a>
                     <a class="tab-link active" href="service.php">Service</a>
                     <a class="tab-link" href="settings.php">Settings</a>
