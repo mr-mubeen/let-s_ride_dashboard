@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+
+$email = $_SESSION["email"];
+$r_id = $_SESSION["r_id"];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -114,7 +123,8 @@
                     </div>
                     <div class="body-sec d-flex wrap-sm p-4">
                         <div class="lft p-2 pe-5">
-                            <form action="#" method ="post" enctype="multipart/form-data">
+                            <form action="driver.php" method ="POST" enctype="multipart/form-data" >
+
                                 <div class="title-line d-flex">
                                     <span class="pe-2">Vehicle Details</span>
                                     <hr>
@@ -133,7 +143,7 @@
                                             <div class="w-60">
                                                 <div class="d-flex justify-content-between mb-1">
 
-                                                <input type="file" name = "driving_lisence_front">
+                                                <input type="file" name = "driving_lisence_front" required>
                                                     <!-- <small class="text-light-cs">document_front.jpeg</small>
                                                     <small>40%</small> -->
                                                 </div>
@@ -159,7 +169,7 @@
                                             <div class="w-60">
                                                 <div class="d-flex justify-content-between mb-1">
 
-                                                <input type="file" name = "driving_lisence_back">
+                                                <input type="file" name = "driving_lisence_back" required>
                                                     <!-- <small class="text-light-cs">document_front.jpeg</small>
                                                     <small>40%</small> -->
                                                 </div>
@@ -175,8 +185,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                        <br>
+                                                                        </div>
+                                  
 
                                     <div class="title-line d-flex">
                                         <span class="pe-2">All Documents Uploads & Checklist*</span>
@@ -186,7 +197,7 @@
                                             Admin Verified
                                         </span>
                                     </div>
-
+<br><br>
                                     <div class="w-50">
                                         <label class="text-light-cs no-translate">Insurance</label>
                                         <div class="form-cs form-control position-relative w-100">
@@ -196,7 +207,7 @@
                                             <div class="w-60">
                                                 <div class="d-flex justify-content-between mb-1">
 
-                                                <input type="file" name = "insurance">
+                                                <input type="file" name = "insurance" required>
                                                     <!-- <small class="text-light-cs">document_front.jpeg</small>
                                                     <small>40%</small> -->
                                                 </div>
@@ -224,7 +235,7 @@
                                             <div class="w-60">
                                                 <div class="d-flex justify-content-between mb-1">
 
-                                                <input type="file" name = "rental_agreement">
+                                                <input type="file" name = "rental_agreement" required>
                                                     <!-- <small class="text-light-cs">document_front.jpeg</small>
                                                     <small>40%</small> -->
                                                 </div>
@@ -242,7 +253,6 @@
                                         </div>
                                     </div>
 
-                                    
                                     <div class="w-50">
                                         <label class="text-light-cs no-translate">S & P Agreement</label>
                                         <div class="form-cs form-control position-relative w-100">
@@ -251,20 +261,10 @@
                                             </div>
                                             <div class="w-60">
                                                 <div class="d-flex justify-content-between mb-1">
-                                                    <!-- <small class="text-light-cs">document_front.jpeg</small>
-                                                    <small>40%</small> --><div class="w-60">
-                                                <div class="d-flex justify-content-between mb-1">
 
-                                                <input type="file" name = "SP_Agreement">
+                                                <input type="file" name = "sp_agreement" required>
                                                     <!-- <small class="text-light-cs">document_front.jpeg</small>
                                                     <small>40%</small> -->
-                                                </div>
-                                                <!-- <div class="progress" style="height: 2px;">
-                                                    <div class="progress-bar bg-danger" role="progressbar"
-                                                        style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
-                                                        aria-valuemax="100"></div>
-                                                </div> -->
-                                            </div>
                                                 </div>
                                                 <!-- <div class="progress" style="height: 2px;">
                                                     <div class="progress-bar bg-danger" role="progressbar"
@@ -279,6 +279,8 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                  
 
                                     <div class="w-50">
                                         <label class="text-light-cs no-translate"></label>
@@ -298,7 +300,7 @@
                                         </div>
                                     </div>
 
-                                    <input type="file" id="fileUpload" name="others" class="d-none">
+                                    <input type="file" id="fileUpload" name="others" class="d-none" required>
                                     <div class="form-cs w-100">
                                         <p class="mb-0 text-light-cs w-100">Do you have commercial insurance?</p>
                                         <div class="radio-cs d-flex align-items-center">
@@ -310,67 +312,76 @@
                                     </div>
 
                                 </div>
+
+                                <div class="rgt p-2 d-flex wrap-sm justify-content-center flex-column">
+
+
+<div class="title-line d-flex">
+    <span class="pe-2">Vehicle Details</span>
+    <hr>
+    <span class="ps-2">
+        <input type="checkbox" class="me-2">
+        Admin Verified
+    </span>
+</div>
+<br>
+<div class="cover d-flex justify-content-center align-items-center w-100 position-relative"
+    style="height: 30vh;">
+    <img src="../assets/img/cover.png" class="position-absolute h-100 w-100" alt="..">
+    <a style="z-index: 1;" class="upload position-absolute m-3 bottom-0 start-0 text-white"
+        href="#" onclick="$('#coverUpload').trigger('click');">
+        <i class="fa fa-camera text-light-cs"></i>
+    </a>
+</div>
+<input type="file" name = "vehicle_image" id="coverUpload" class="d-none">
+
+<br><br><br><br>
+<p class="text-light-cs" style="font-size: 10px;"><b>Note:</b> Full view of vehicle along
+    with a
+    visible number plate*
+</p>
+<div class="form-cs form-control position-relative w-100">
+    <label class="position-absolute start-0 text-light-cs">PABs</label>
+    <input placeholder="UL 2272 (472)" name="PAB" class="border-0 w-100 h-100" type="text">
+</div>
+<br>
+<div class="d-flex gap-2 w-100">
+    <div class="form-cs form-control position-relative w-50">
+        <label class="position-absolute start-0 text-light-cs">Vehicle Brand</label>
+        <input placeholder="Audi" name = "vehicle_brand" class="border-0 w-100 h-100" type="text">
+    </div>
+    <div class="form-cs form-control position-relative w-50">
+        <label class="position-absolute start-0 text-light-cs">Vehicle Type</label>
+        <input placeholder="Stream" name = "vehicle_type" class="border-0 w-100 h-100" type="text">
+    </div>
+</div>
+<br>
+<div class="d-flex gap-2 w-100">
+    <div class="form-cs form-control position-relative w-50">
+        <label class="position-absolute start-0 text-light-cs">Vehicle Number</label>
+        <input placeholder="Sjj 1234 S" name = "vehicle_number" class="border-0 w-100 h-100" type="text">
+    </div>
+    <div class="form-cs form-control position-relative w-50">
+        <label class="position-absolute start-0 text-light-cs">Vehicle Color</label>
+        <input placeholder="Black" name = "vehicle_color" class="border-0 w-100 h-100" type="text">
+    </div>
+</div>
+</div>
+
+
                                 <div class="d-flex justify-content-end">
                                 <button class="btn btn-default btn-lg-cs" name = "sbt">Submit Profile</button>
-                            </div>
+                            
+
+                                </div>
+
+                        
                             
                             </form>
                             
+
                         </div>
-                        <div class="rgt p-2 d-flex wrap-sm justify-content-center flex-column">
-
-
-                            <div class="title-line d-flex">
-                                <span class="pe-2">Vehicle Details</span>
-                                <hr>
-                                <span class="ps-2">
-                                    <input type="checkbox" class="me-2">
-                                    Admin Verified
-                                </span>
-                            </div>
-                            <br>
-                            <div class="cover d-flex justify-content-center align-items-center w-100 position-relative"
-                                style="height: 30vh;">
-                                <img src="../assets/img/cover.png" class="position-absolute h-100 w-100" alt="..">
-                                <a style="z-index: 1;" class="upload position-absolute m-3 bottom-0 start-0 text-white"
-                                    href="#" onclick="$('#coverUpload').trigger('click');">
-                                    <i class="fa fa-camera text-light-cs"></i>
-                                </a>
-                            </div>
-                            <input type="file" name = "vehicle_image" id="coverUpload" class="d-none">
-
-                            <br><br><br><br>
-                            <p class="text-light-cs" style="font-size: 10px;"><b>Note:</b> Full view of vehicle along
-                                with a
-                                visible number plate*
-                            </p>
-                            <div class="form-cs form-control position-relative w-100">
-                                <label class="position-absolute start-0 text-light-cs">PABs</label>
-                                <input placeholder="UL 2272 (472)" name="PAB" class="border-0 w-100 h-100" type="text">
-                            </div>
-                            <br>
-                            <div class="d-flex gap-2 w-100">
-                                <div class="form-cs form-control position-relative w-50">
-                                    <label class="position-absolute start-0 text-light-cs">Vehicle Brand</label>
-                                    <input placeholder="Audi" name = "vehicle_brand" class="border-0 w-100 h-100" type="text">
-                                </div>
-                                <div class="form-cs form-control position-relative w-50">
-                                    <label class="position-absolute start-0 text-light-cs">Vehicle Type</label>
-                                    <input placeholder="Stream" name = "vehicle_type" class="border-0 w-100 h-100" type="text">
-                                </div>
-                            </div>
-                            <br>
-                            <div class="d-flex gap-2 w-100">
-                                <div class="form-cs form-control position-relative w-50">
-                                    <label class="position-absolute start-0 text-light-cs">Vehicle Number</label>
-                                    <input placeholder="Sjj 1234 S" name = "vehicle_number" class="border-0 w-100 h-100" type="text">
-                                </div>
-                                <div class="form-cs form-control position-relative w-50">
-                                    <label class="position-absolute start-0 text-light-cs">Vehicle Color</label>
-                                    <input placeholder="Black" name = "vehicle_color" class="border-0 w-100 h-100" type="text">
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
                 <br><br>
@@ -400,51 +411,51 @@ if(isset($_POST['sbt'])){
 
    $driving_lisence_front = $_FILES['driving_lisence_front']['name'];
    $filesize = $_FILES['driving_lisence_front']['size'];
-   $filetmp = $_FILES['driving_lisence_front']['tmp_name'];
+   $driving_lisence_front_temp = $_FILES['driving_lisence_front']['tmp_name'];
    $des = "images/".$driving_lisence_front;
-   move_uploaded_file($filetmp , $des); 
+   move_uploaded_file($driving_lisence_front_temp , $des); 
 
 
    
    $driving_lisence_back = $_FILES['driving_lisence_back']['name'];
    $filesize = $_FILES['driving_lisence_back']['size'];
-   $filetmp = $_FILES['driving_lisence_back']['tmp_name'];
+   $driving_lisence_back_temp = $_FILES['driving_lisence_back']['tmp_name'];
    $des = "images/".$driving_lisence_back;
-   move_uploaded_file($filetmp , $des); 
+   move_uploaded_file($driving_lisence_back_temp , $des); 
 
 
    
    $insurance = $_FILES['insurance']['name'];
    $filesize = $_FILES['insurance']['size'];
-   $filetmp = $_FILES['insurance']['tmp_name'];
+   $insurance_temp = $_FILES['insurance']['tmp_name'];
    $des = "images/".$insurance;
-   move_uploaded_file($filetmp , $des); 
+   move_uploaded_file($insurance_temp , $des); 
 
    
    $rental_agreement = $_FILES['rental_agreement']['name'];
    $filesize = $_FILES['rental_agreement']['size'];
-   $filetmp = $_FILES['rental_agreement']['tmp_name'];
+   $rental_agreement_temp = $_FILES['rental_agreement']['tmp_name'];
    $des = "images/".$rental_agreement;
-   move_uploaded_file($filetmp , $des); 
+   move_uploaded_file($rental_agreement_temp , $des); 
 
    
    $sp_agreement = $_FILES['sp_agreement']['name'];
    $filesize = $_FILES['sp_agreement']['size'];
-   $filetmp = $_FILES['sp_agreement']['tmp_name'];
+   $sp_agreement_temp = $_FILES['sp_agreement']['tmp_name'];
    $des = "images/".$sp_agreement;
-   move_uploaded_file($filetmp , $des); 
+   move_uploaded_file($sp_agreement_temp , $des); 
 
    
    $others = $_FILES['others']['name'];
    $filesize = $_FILES['others']['size'];
-   $filetmp = $_FILES['others']['tmp_name'];
+   $others_temp = $_FILES['others']['tmp_name'];
    $des = "images/".$others;
-   move_uploaded_file($filetmp , $des); 
+   move_uploaded_file($others_temp , $des); 
 
 
 
     $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
-    $sql = "INSERT INTO rider($vehicle_image  ,$PAB , $vehicle_brand  , $vehicle_type , $vehicle_number , $vehicle_color , $driving_lisence_front , $driving_lisence_back , $insurance , $rental_agreement , $sp_agreement ,$others   ) VALUES ('{$vehicle_image }' ,'{$PAB}' , '{$vehicle_brand}'  , '{$vehicle_type}' , '{$vehicle_number}' , '{$vehicle_color}' , '{$driving_lisence_front}' , '{$driving_lisence_back}' , '{$insurance}' , '{$rental_agreement}' , '{$sp_agreement}' ,'{$others}' )";
+    echo $sql = "INSERT INTO rider(vehicle_image  ,PAB , vehicle_brand  , vehicletype , vehicle_number , vehicle_color , driving_license_front , driving_license_back , insurance , rental_agreement , sp_agreement ,others   ) VALUES ('{$vehicle_image }' ,'{$PAB}' , '{$vehicle_brand}'  , '{$vehicle_type}' , '{$vehicle_number}' , '{$vehicle_color}' , '{$driving_lisence_front}' , '{$driving_lisence_back}' , '{$insurance}' , '{$rental_agreement}' , '{$sp_agreement}' ,'{$others}' )";
     $result = mysqli_query($conn , $sql) or die ("Regsiter _______________________ Failed");
     echo "<script>alert('{$result}')</script>";
 
