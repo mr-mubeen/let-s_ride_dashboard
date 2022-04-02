@@ -1,8 +1,5 @@
 <?php
-
-
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,7 +119,7 @@ session_start();
                 </div>
                 <div class="body-sec d-flex wrap-sm p-4">
                     <div class="lft p-2 pe-5">
-                        <form action="" method = "POST">
+                        <form action="" method = "POST" enctype="multipart/form-data" >
 
                                 <div class="title-line d-flex">
                                     <span class="pe-2">Category</span>
@@ -186,11 +183,8 @@ session_start();
                         <?php
 
 
-
-                            // session_start();
-                            // $email = $_SESSION["email"];
-                            $r_id = 7;
-
+$email = $_SESSION["email"];
+$r_id = $_SESSION["r_id"];
                             $conn = mysqli_connect('localhost' , 'root' , '' , 'lets_ride') or die ('Connect Failed');
 
                             $sql1 = "SELECT *  from restaurant where restaurant_id = '{$r_id}'";
